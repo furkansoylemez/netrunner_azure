@@ -31,6 +31,7 @@ public class RegistrationIntentService extends IntentService {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String resultString = null;
         String regID = null;
+        String userId="08da9af0-f457-ae45-3bc7-1219c1fb49f1";
         try {
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener < InstanceIdResult > () {
                 @Override
@@ -55,7 +56,7 @@ public class RegistrationIntentService extends IntentService {
             if (((regID = sharedPreferences.getString("registrationID", null)) == null)) {
                 NotificationHub hub = new NotificationHub(nhSettings.getHubName(),
                         nhSettings.getHubConnectionString(), this);
-                regID = hub.register(FCM_token, tags).getRegistrationId();
+                regID = hub.register(FCM_token, "android",userId).getRegistrationId();
                 resultString = "New NH Registration Successfully - RegId : " + regID;
                 Log.d(TAG, resultString);
                 sharedPreferences.edit().putString("registrationID", regID).apply();
@@ -66,7 +67,7 @@ public class RegistrationIntentService extends IntentService {
             else if ((sharedPreferences.getString("FCMtoken", "")) != FCM_token) {
                 NotificationHub hub = new NotificationHub(nhSettings.getHubName(),
                         nhSettings.getHubConnectionString(), this);
-                regID = hub.register(FCM_token, tags).getRegistrationId();
+                regID = hub.register(FCM_token, "android",userId).getRegistrationId();
                 resultString = "New NH Registration Successfully - RegId : " + regID;
                 Log.d(TAG, resultString);
                 sharedPreferences.edit().putString("registrationID", regID).apply();

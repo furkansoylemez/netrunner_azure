@@ -33,11 +33,11 @@ public class NotificationService extends FirebaseMessagingService {
     public static final String NOTIFICATION_CHANNEL_DESCRIPTION = "Azure Notification Hubs Channel";
 
     public static final String ACTION_REMOTE_MESSAGE =
-            "com.swiftoffice.azure_notificationhubs_flutter.NOTIFICATION";
-    public static final String ACTION_TOKEN = "com.swiftoffice.azure_notificationhubs_flutter.TOKEN";
+            "com.netrunner.netrunner_azure.NOTIFICATION";
+    public static final String ACTION_TOKEN = "com.netrunner.netrunner_azure.TOKEN";
     public static final String EXTRA_REMOTE_MESSAGE =
-            "com.swiftoffice.azure_notificationhubs_flutter.NOTIFICATION_DATA";
-    public static final String EXTRA_TOKEN = "com.swiftoffice.azure_notificationhubs_flutter.TOKEN_DATA";
+            "com.netrunner.netrunner_azure.NOTIFICATION_DATA";
+    public static final String EXTRA_TOKEN = "com.netrunner.netrunner_azure.TOKEN_DATA";
 
     private NotificationManager mNotificationManager;
     private static Context ctx;

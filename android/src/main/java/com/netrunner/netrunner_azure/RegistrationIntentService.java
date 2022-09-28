@@ -32,6 +32,7 @@ public class RegistrationIntentService extends IntentService {
         String resultString = null;
         String regID = null;
         String userId="08da9af0-f457-ae45-3bc7-1219c1fb49f1";
+        Log.d("USER ID GELDIM",userId);
         try {
             FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener < InstanceIdResult > () {
                 @Override

@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -56,6 +57,7 @@ public class NotificationService extends FirebaseMessagingService {
         Class mainActivity;
         try {
             String packageName = ctx.getPackageName();
+            Log.d("PACKAGE NAME",packageName);
             Intent launchIntent = ctx.getPackageManager().getLaunchIntentForPackage(packageName);
             String activityName = launchIntent.getComponent().getClassName();
             mainActivity = Class.forName(activityName);

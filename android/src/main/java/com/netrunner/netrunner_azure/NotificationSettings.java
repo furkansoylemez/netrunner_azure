@@ -4,6 +4,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.content.Context;
+import android.util.Log;
 
 public class NotificationSettings {
     private String HubName;
@@ -14,7 +15,9 @@ public class NotificationSettings {
             ApplicationInfo app = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
             Bundle bundle = app.metaData;
             HubName = bundle.getString("NotificationHubName");
+            Log.d("HubName",HubName);
             HubConnectionString = bundle.getString("NotificationHubConnectionString");
+            Log.d("HubConnectionString",HubConnectionString);
         } catch(PackageManager.NameNotFoundException e) {
         }
     }

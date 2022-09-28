@@ -9,6 +9,7 @@ buildscript {
 
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.google.gms:google-services:4.3.14'
     }
 }
 
@@ -41,7 +42,7 @@ android {
 
     dependencies{
         implementation 'com.google.firebase:firebase-core:16.0.8'
-        implementation 'com.google.firebase:firebase-messaging:17.3.4'
+        implementation 'com.google.firebase:firebase-messaging:23.0.8'
         implementation 'com.microsoft.azure:notification-hubs-android-sdk:0.6@aar'
         implementation 'androidx.localbroadcastmanager:localbroadcastmanager:1.0.0'
     }

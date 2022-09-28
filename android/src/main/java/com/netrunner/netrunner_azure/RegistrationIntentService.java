@@ -10,7 +10,6 @@ import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.iid.InstanceIdResult;
 import com.microsoft.windowsazure.messaging.NotificationHub;
 

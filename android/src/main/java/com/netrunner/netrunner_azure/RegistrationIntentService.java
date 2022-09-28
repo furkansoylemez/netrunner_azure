@@ -12,6 +12,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.microsoft.windowsazure.messaging.NotificationHub;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.math.BigInteger;
 import java.security.MessageDigest;
@@ -34,10 +35,10 @@ public class RegistrationIntentService extends IntentService {
         String userId="08da9af0-f457-ae45-3bc7-1219c1fb49f1";
         Log.d("USER ID GELDIM",userId);
         try {
-            FirebaseInstanceId.getInstance().getInstanceId().addOnSuccessListener(new OnSuccessListener < InstanceIdResult > () {
+            FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener < String > () {
                 @Override
-                public void onSuccess(InstanceIdResult instanceIdResult) {
-                    FCM_token = instanceIdResult.getToken();
+                public void onSuccess(String instanceIdResult) {
+                    FCM_token = instanceIdResult;
                 }
             });
             TimeUnit.SECONDS.sleep(1);

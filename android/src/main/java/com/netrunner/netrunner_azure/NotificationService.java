@@ -34,11 +34,11 @@ public class NotificationService extends FirebaseMessagingService {
     public static final String NOTIFICATION_CHANNEL_DESCRIPTION = "Azure Notification Hubs Channel";
 
     public static final String ACTION_REMOTE_MESSAGE =
-            "com.netrunner.netrunner_azure.NOTIFICATION";
-    public static final String ACTION_TOKEN = "com.netrunner.netrunner_azure.TOKEN";
+            "com.ovidos.pakettaxi.driverNOTIFICATION";
+    public static final String ACTION_TOKEN = "com.ovidos.pakettaxi.driverTOKEN";
     public static final String EXTRA_REMOTE_MESSAGE =
-            "com.netrunner.netrunner_azure.NOTIFICATION_DATA";
-    public static final String EXTRA_TOKEN = "com.netrunner.netrunner_azure.TOKEN_DATA";
+            "com.ovidos.pakettaxi.driverNOTIFICATION_DATA";
+    public static final String EXTRA_TOKEN = "com.ovidos.pakettaxi.driverTOKEN_DATA";
 
     private NotificationManager mNotificationManager;
     private static Context ctx;

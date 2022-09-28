@@ -29,7 +29,6 @@ public class RegistrationIntentService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent intent) {
-        FirebaseApp.initializeApp(this);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String resultString = null;
         String regID = null;

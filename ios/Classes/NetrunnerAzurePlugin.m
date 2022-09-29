@@ -60,7 +60,6 @@
   NSString *token = [self stringWithDeviceToken:deviceToken];
   NSString *deviceTag = [@"device:" stringByAppendingString:token];
   NSArray *tags = @[@"ios" , _userId];
-  NSLog(_userId);
   SBNotificationHub* hub = [self getNotificationHub];
   [hub registerNativeWithDeviceToken:deviceToken tags:tags completion:^(NSError* error) {
     if (error != nil) {

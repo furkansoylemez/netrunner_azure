@@ -27,6 +27,7 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"configure" isEqualToString:call.method]) {
+    NSLog(@"GELDI");
    // _userId=call.arguments["userId"];
     [self handleRegister];
     if (_launchNotification != nil) {

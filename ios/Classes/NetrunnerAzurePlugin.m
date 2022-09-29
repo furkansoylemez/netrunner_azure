@@ -4,6 +4,7 @@
 @implementation NetrunnerAzurePlugin {
   FlutterMethodChannel *_channel;
   NSDictionary *_launchNotification;
+  NSString *_userId;
   BOOL _resumingFromBackground;
 }
 
@@ -27,6 +28,7 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"configure" isEqualToString:call.method]) {
+    _userId=call.arguments["userId"];
     [self handleRegister];
     if (_launchNotification != nil) {
       [_channel invokeMethod:@"onLaunch" arguments:_launchNotification];
@@ -55,10 +57,10 @@
   completionHandler(UIBackgroundFetchResultNoData);
 }
 
-- (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+- (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
   NSString *token = [self stringWithDeviceToken:deviceToken];
   NSString *deviceTag = [@"device:" stringByAppendingString:token];
-  NSArray *tags = @[deviceTag];
+  NSArray *tags = @["ios" , _userId];
   SBNotificationHub* hub = [self getNotificationHub];
   [hub registerNativeWithDeviceToken:deviceToken tags:tags completion:^(NSError* error) {
     if (error != nil) {
@@ -88,8 +90,8 @@
 }
 
 - (SBNotificationHub *)getNotificationHub {
-  NSString *hubName = [[NSBundle mainBundle] objectForInfoDictionaryKey:NHInfoHubName];
-  NSString *connectionString = [[NSBundle mainBundle] objectForInfoDictionaryKey:NHInfoConnectionString];
+  NSString *hubName = @"pakettaxi";
+  NSString *connectionString = @"Endpoint=sb://pakettaxi.servicebus.windows.net/;SharedAccessKeyName=DefaultFullSharedAccessSignature;SharedAccessKey=SOwyAFhwfc7cX/tvAnOzT8nGMJoW1ZGYg3EVvxoyNBk=";
   return [[SBNotificationHub alloc] initWithConnectionString:connectionString notificationHubPath:hubName];
 }
 

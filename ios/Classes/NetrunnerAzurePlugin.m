@@ -28,8 +28,6 @@
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"configure" isEqualToString:call.method]) {
     _userId= call.arguments[@"userId"];
-    NSLog(@"GELDI");
-    NSLog(_userId);
     [self handleRegister];
     if (_launchNotification != nil) {
       [_channel invokeMethod:@"onLaunch" arguments:_launchNotification];
@@ -62,6 +60,7 @@
   NSString *token = [self stringWithDeviceToken:deviceToken];
   NSString *deviceTag = [@"device:" stringByAppendingString:token];
   NSArray *tags = @[@"ios" , _userId];
+  NSLog(_userId);
   SBNotificationHub* hub = [self getNotificationHub];
   [hub registerNativeWithDeviceToken:deviceToken tags:tags completion:^(NSError* error) {
     if (error != nil) {

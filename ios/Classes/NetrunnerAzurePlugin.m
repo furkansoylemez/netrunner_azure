@@ -59,7 +59,7 @@
 - (void) application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
   NSString *token = [self stringWithDeviceToken:deviceToken];
   NSString *deviceTag = [@"device:" stringByAppendingString:token];
-  NSArray *tags = @["ios" , _userId];
+  NSArray *tags = @[@"ios" , _userId];
   SBNotificationHub* hub = [self getNotificationHub];
   [hub registerNativeWithDeviceToken:deviceToken tags:tags completion:^(NSError* error) {
     if (error != nil) {

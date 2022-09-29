@@ -27,7 +27,7 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"configure" isEqualToString:call.method]) {
-    _userId=call.arguments["userId"];
+   // _userId=call.arguments["userId"];
     [self handleRegister];
     if (_launchNotification != nil) {
       [_channel invokeMethod:@"onLaunch" arguments:_launchNotification];

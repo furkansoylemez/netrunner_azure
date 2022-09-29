@@ -59,6 +59,7 @@ public class NetrunnerAzurePlugin extends BroadcastReceiver implements FlutterPl
 
   public void registerWithNotificationHubs(String userId) {
     Intent intent = new Intent(applicationContext, RegistrationIntentService.class);
+    intent.putExtra("userId", userId);
     applicationContext.startService(intent);
   }
 

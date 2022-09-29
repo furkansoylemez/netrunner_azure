@@ -3,7 +3,7 @@
 @implementation NetrunnerAzurePlugin {
   FlutterMethodChannel *_channel;
   NSDictionary *_launchNotification;
-  NSString _userId;
+  NSString *_userId;
   BOOL _resumingFromBackground;
 }
 
@@ -27,7 +27,8 @@
 
 - (void)handleMethodCall:(FlutterMethodCall*)call result:(FlutterResult)result {
   if ([@"configure" isEqualToString:call.method]) {
-    _userId=call.arguments["userId"];
+    _userId= call.arguments[@"userId"];
+    NSLog(@"GELDI");
     NSLog(_userId);
     [self handleRegister];
     if (_launchNotification != nil) {

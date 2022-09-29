@@ -20,13 +20,14 @@ class AzureNotificationhubsFlutter {
       {MessageHandler? onMessage,
       MessageHandler? onResume,
       MessageHandler? onLaunch,
-      TokenHandler? onToken}) {
+      TokenHandler? onToken,
+      required String userId}) {
     _onMessage = onMessage;
     _onLaunch = onLaunch;
     _onResume = onResume;
     _onToken = onToken;
     _channel.setMethodCallHandler(_handleMethod);
-    _channel.invokeMethod<void>('configure');
+    _channel.invokeMethod<void>('configure', {"userId": userId});
   }
 
   Future<dynamic> _handleMethod(MethodCall call) async {

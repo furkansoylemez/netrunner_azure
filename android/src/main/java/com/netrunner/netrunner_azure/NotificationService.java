@@ -56,7 +56,7 @@ public class NotificationService extends FirebaseMessagingService {
         ctx = getApplicationContext();
         Class mainActivity;
         try {
-            String packageName = ctx.getPackageName();
+            String packageName = "com.ovidos.pakettaxi.driver";
             Log.d("PACKAGE NAME",packageName);
             Intent launchIntent = ctx.getPackageManager().getLaunchIntentForPackage(packageName);
             String activityName = launchIntent.getComponent().getClassName();
@@ -104,6 +104,7 @@ public class NotificationService extends FirebaseMessagingService {
 
     @NonNull
     public static Map<String, Object> parseRemoteMessage(RemoteMessage message) {
+        Log.d("REMOTE MESSAGE",message.toString());
         Map<String, Object> content = new HashMap<>();
         content.put("data", message.getData());
         return content;

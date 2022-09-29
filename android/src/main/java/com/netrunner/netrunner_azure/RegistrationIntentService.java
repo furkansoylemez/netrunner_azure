@@ -32,8 +32,13 @@ public class RegistrationIntentService extends IntentService {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         String resultString = null;
         String regID = null;
-        String userId="08da9af0-f457-ae45-3bc7-1219c1fb49f1";
-        Log.d("USER ID GELDIM",userId);
+        String userId = intent.getStringExtra("userId");
+
+        if(userId==null){
+            userId="";
+        }
+
+        Log.d("USER ID",userId);
         try {
             FirebaseMessaging.getInstance().getToken().addOnSuccessListener(new OnSuccessListener < String > () {
                 @Override
@@ -42,6 +47,7 @@ public class RegistrationIntentService extends IntentService {
                 }
             });
             TimeUnit.SECONDS.sleep(1);
+
             String sha1 = "";
             try {
                 MessageDigest digest = MessageDigest.getInstance("SHA-1");
@@ -54,6 +60,7 @@ public class RegistrationIntentService extends IntentService {
             String[] tags = {
                 "device:" + sha1
             };
+
             NotificationSettings nhSettings = new NotificationSettings(getApplicationContext());
             if (((regID = sharedPreferences.getString("registrationID", null)) == null)) {
                 NotificationHub hub = new NotificationHub(nhSettings.getHubName(),

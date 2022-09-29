@@ -16,7 +16,6 @@ import io.flutter.plugin.common.MethodChannel;
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler;
 import io.flutter.plugin.common.MethodChannel.Result;
 
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.messaging.RemoteMessage;
 
 /** NetrunnerAzurePlugin */
@@ -50,14 +49,15 @@ public class NetrunnerAzurePlugin extends BroadcastReceiver implements FlutterPl
   @Override
   public void onMethodCall(@NonNull MethodCall call, @NonNull Result result) {
     if (call.method.equals("configure")) {
-      registerWithNotificationHubs();
+       final String userId= call.argument("userId");
+      registerWithNotificationHubs(userId);
       NotificationService.createChannelAndHandleNotifications(applicationContext);
     } else {
       result.notImplemented();
     }
   }
 
-  public void registerWithNotificationHubs() {
+  public void registerWithNotificationHubs(String userId) {
     Intent intent = new Intent(applicationContext, RegistrationIntentService.class);
     applicationContext.startService(intent);
   }

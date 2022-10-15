@@ -15,6 +15,9 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.util.Log;
+import android.net.Uri;
+import android.media.AudioAttributes;
+import android.app.Notification;
 
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
@@ -45,6 +48,7 @@ public class NotificationService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage message) {
+        Log.d("MESSAGE RECEIVED",message.toString());
         Map<String, Object> content = parseRemoteMessage(message);
         Intent intent = new Intent(ACTION_REMOTE_MESSAGE);
         intent.putExtra(EXTRA_REMOTE_MESSAGE, message);
@@ -67,22 +71,30 @@ public class NotificationService extends FirebaseMessagingService {
             PendingIntent contentIntent = PendingIntent.getActivity(ctx, 0,
                 intent, PendingIntent.FLAG_ONE_SHOT);
             Resources resources = ctx.getPackageManager().getResourcesForApplication(packageName);
-            int resId = resources.getIdentifier("ic_launcher", "mipmap", packageName);
+            int resId = resources.getIdentifier("shopping_bag", "drawable", packageName);
             Drawable icon = resources.getDrawable(resId);
+            int soundRawId = resources.getIdentifier("kisapakettaxi", "raw", packageName);
+            Uri soundUri = Uri.parse("android.resource://" +"com.ovidos.pakettaxi.driver"+ "/" + soundRawId);
+            AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                    .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                    .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                    .build();
             NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(
                     ctx,
                     NOTIFICATION_CHANNEL_ID)
-                .setContentTitle(((Map) content.get("data")).get("title").toString())
-                .setContentText(((Map) content.get("data")).get("body").toString())
-                .setDefaults(DEFAULT_SOUND | DEFAULT_VIBRATE | DEFAULT_ALL)
+                .setContentTitle(("PaketTaxi"))
+                .setContentText(((Map) content.get("data")).get("message").toString())
                 .setPriority(PRIORITY_HIGH)
                 .setSmallIcon(R.drawable.ic_menu_manage)
+                .setSound(soundUri)
                 .setLargeIcon(BitmapFactory.decodeResource(resources, resId))
                 .setContentIntent(contentIntent)
                 .setBadgeIconType(NotificationCompat.BADGE_ICON_SMALL)
                 .setAutoCancel(true);
+                
+            Notification notification = notificationBuilder.build();
             int m = (int)((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
-            mNotificationManager.notify(m, notificationBuilder.build());
+            mNotificationManager.notify(m, notification);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -90,6 +102,11 @@ public class NotificationService extends FirebaseMessagingService {
 
     public static void createChannelAndHandleNotifications(Context context) {
         ctx = context;
+        Uri soundUri = Uri.parse("android.resource://"+ "com.ovidos.pakettaxi.driver" + "/" + "raw/kisapakettaxi");
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                        .setUsage(AudioAttributes.USAGE_NOTIFICATION)
+                        .build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel channel = new NotificationChannel(
                 NOTIFICATION_CHANNEL_ID,
@@ -97,6 +114,7 @@ public class NotificationService extends FirebaseMessagingService {
                 NotificationManager.IMPORTANCE_HIGH);
             channel.setDescription(NOTIFICATION_CHANNEL_DESCRIPTION);
             channel.enableVibration(true);
+            channel.setSound(soundUri,audioAttributes);
             NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
             notificationManager.createNotificationChannel(channel);
         }
